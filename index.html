@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="Multi-Source Spatial Knowledge Understanding for Immersive Visual Text-to-Speech">
+  <meta property="og:title" content="Multi-Source Spatial Knowledge Understanding for Immersive Visual Text-to-Speech"/>
+  <link rel="icon" type="image/x-icon" href="static/images/favicon.ico">    
+  
+  <title>Multi-Source Spatial Knowledge Understanding for Immersive Visual Text-to-Speech</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+  <link rel="stylesheet" href="static/css/audio-table.css">
+  <link rel="stylesheet" type="text/css" href="static/css/dropdown_style.css">
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script src="static/js/bulma-carousel.min.js"></script>
+  <script src="static/js/bulma-slider.min.js"></script>
+  <script src="static/js/index.js"></script>
+</head>
+
+<body>
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title">Multi-Source Spatial Knowledge Understanding for Immersive Visual Text-to-Speech</h1>
+                </div> 
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+	  
+	<section class="section hero is-light">
+	    <div class="container is-max-desktop">
+	      <!-- Abstract. -->
+			<div class="columns is-centered has-text-centered">
+				<div class="column is-four-fifths">
+					<h2 class="title is-3">Abstract</h2>
+					<div class="content has-text-justified">
+						Visual Text-to-Speech (VTTS) aims to take the spatial environmental image as the prompt to synthesize the reverberation speech for the spoken content.
+						Previous research focused on the RGB modality for global environmental modeling, overlooking the potential of multi-source spatial knowledge like depth, speaker position, and environmental semantics.
+						To address the issues, we propose a novel multi-source spatial knowledge understanding scheme for immersive VTTS, termed MS²KU-VTTS. 
+						Specifically, we first prioritize RGB image as the dominant source and consider depth image, speaker position knowledge from object detection, and semantic captions from image understanding LLM as supplementary sources. 
+						Afterwards, we propose a serial interaction mechanism to deeply engage with both dominant and supplementary sources. The resulting multi-source knowledge is dynamically integrated based on their contributions.
+						This enriched interaction and integration of multi-source spatial knowledge guides the speech generation model, enhancing the immersive spatial speech experience.
+						Experimental results demonstrate that the MS²KU-VTTS surpasses existing baselines in generating immersive speech. Demos and code are available at: 
+						<a href="https://github.com/MS2KU-VTTS/MS2KU-VTTS"><span  style="color: #1d5da4; ">https://github.com/MS2KU-VTTS/MS2KU-VTTS</span></a>.
+					</div>
+				</div>	
+			</div>
+			<div class="columns is-centered has-text-centered">
+				<div class="column is-four-fifths">
+					<h2 class="title is-3">MODEL ARCHITECTURE</h2>
+				</div>
+			</div>
+		<img src="./Supplementary_Material/model.png" alt="" style="width:100%; height:auto; ">
+		
+		<div class="columns is-centered has-text-centered">
+			<div class="column is-four-fifths">
+				<div class="content has-text-justified">
+					Figure: The overview of MS2KU-VTTS, that includes the Multi-source Spatial Knowledge, the Dominant-Supplement Serial Interaction, the Dynamic Fusion and the Speech Generation.
+				</div>
+			</div>	
+		</div>
+		
+		<div class="columns is-centered has-text-centered">
+	    	<div class="column is-four-fifths">
+	    		<h2 class="title is-3">BASELINE MODELS</h2>
+	    	</div>
+	    </div>
+	    </br> 1) <b>DiffSpeech</b> is a Text-to-Speech (TTS) model that utilizes a diffusion probabilistic approach. It takes text as input and iteratively converts noise into mel-spectrograms conditioned on the text, ensuring stable training and producing high-quality output.
+		<a href="https://ojs.aaai.org/index.php/AAAI/article/view/21350"><span  style="color: #1d5da4; ">(Note: DiffSpeech paper URL)</span></a>
+	    </br> 2) <b>ProDiff</b> is a progressive, fast diffusion model designed for high-quality speech synthesis. It takes text as input and directly predicts clean mel-spectrograms, significantly reducing the number of required sampling iterations.
+	    <a href="https://dl.acm.org/doi/abs/10.1145/3503161.3547855"><span  style="color: #1d5da4; ">(Note: ProDiff paper URL)</span></a>
+		
+		</br> 3) <b>VoiceLDM</b> is a Text-to-Speech (TTS) model that uses text as its primary input. It captures the global environmental context from descriptive prompts to generate audio that aligns with both the content and the overall situational description. Given the differences in environmental text descriptions between the training datasets—where the original dataset primarily describes the type of environment, while ours emphasizes specific components and their spatial relationships—we focus on the model's novel method of leveraging textual descriptions to guide the synthesis of reverberant speech.
+	    <a href="https://arxiv.org/pdf/2309.13664"><span  style="color: #1d5da4; ">(Note: Voice paper URL)</span></a>
+		
+		</br> 4) <b>ViT-TTS</b> is a Visual Text-to-Speech (VTTS) model that takes both text and environmental images as inputs. It leverages ResNet18 to extract global visual features from the image, which helps capture the room's acoustic characteristics and enhance audio generation.
+	    <a href="https://arxiv.org/pdf/2305.12708"><span  style="color: #1d5da4; ">(Note: ViT-TTS paper URL)</span></a>
+		
+		</div>
+
+	</section>
+		
+	  <section class="hero">
+		  <div class="hero-body">
+			  <div class="container">
+
+		<div class="grid-container">
+			<table >
+				<tr >
+					<th>Systems</th>
+					<th>Recording</th>
+					<th> <a href="https://ojs.aaai.org/index.php/AAAI/article/view/21350"><span  style="color: #1d5da4; ">DiffSpeech[1]</span></a></th>
+					<th> <a href="https://dl.acm.org/doi/abs/10.1145/3503161.3547855"><span  style="color: #1d5da4; ">ProDiff[2]</span></a></th>
+					<th> <a href="https://arxiv.org/pdf/2309.13664"><span  style="color: #1d5da4; ">VoiceLDM[3]</span></a> </th>
+					<th><a href="https://arxiv.org/pdf/2305.12708"><span  style="color: #1d5da4; ">ViT-TTS[4]</span></a></th>
+					<th>MS2KU-VTTS (ours)</th>
+				</tr>
+				<!-- <tr>
+					<th colspan="6" style="text-align:left">Sample 1: </th>
+				</tr> -->
+				<tr >
+					<th style=" vertical-align:middle;" width="10%">Sample 1: </th>
+                    <th style=" vertical-align:middle;">
+						<audio  controls style="width: 150px;"><source src="Supplementary_Material/Performance/Test-Unseen/GT/5639-40744-0005.wav"          type="audio/wav"></audio>
+					<th style=" vertical-align:middle;">
+						<audio  controls style="width: 150px;"><source src="Supplementary_Material/Performance/Test-Unseen/diffspeech/5639-40744-0005.wav"        type="audio/wav"></audio>
+					</th>
+					<th style=" vertical-align:middle;">
+						<audio  controls style="width: 150px;"><source src="Supplementary_Material/Performance/Test-Unseen/prodiff/5639-40744-0005.wav"        type="audio/wav"></audio>
+					</th>
+					<th style=" vertical-align:middle;">
+						<audio  controls style="width: 150px;"><source src="Supplementary_Material/Performance/Test-Unseen/VoiceLDM/5639-40744-0005.wav"        type="audio/wav"></audio>
+					</th>
+					<th style=" vertical-align:middle;">
+						<audio  controls style="width: 150px;"><source src="Supplementary_Material/Performance/Test-Unseen/vit-tts/5639-40744-0005.wav"          type="audio/wav"></audio>
+					</th>
+					<th style=" vertical-align:middle;">
+						<audio  controls style="width: 150px;"><source src="Supplementary_Material/Performance/Test-Unseen/MS2KU-VTTS/5639-40744-0005.wav"         type="audio/wav"></audio>
+					</th>
+				</tr>
+
+                <tr>
+                    <th style=" vertical-align:middle;"> Target RGB/Depth Image: </th>
+					<th style=" vertical-align:middle;" colspan="3">
+						<img  src="Supplementary_Material/Performance/Test-Unseen/imgs/5639-40744-0005.jpg"20">
+                    </th>
+                    <th style=" vertical-align:middle;" colspan="3">
+						<img  src="Supplementary_Material/Performance/Test-Unseen/imgs/5639-40744-0005_depth.jpg"20">
+                    </th>
+                </tr>
+
+				<tr > 
+					<th style=" vertical-align:middle;"> Reference Text: </th>
+                    <td colspan="6" style=" vertical-align:middle;">finally the one party went off exulting</td>
+				</tr>
+				<tr >
+					<th style=" vertical-align:middle;"> Caption Text: </th>
+				    <td colspan="6" style=" vertical-align:middle;"> This panoramic image depicts a spacious outdoor dining area. A long wooden table, surrounded by white chairs, occupies the center. To the left and right of the table, there are sliding glass doors leading to a covered patio area with a thatched roof. The patio is adorned with hanging plants and offers views of lush greenery beyond. The overall ambiance is serene and inviting.</td>
+				</tr>
+            
+				<tr >
+					<th>Systems</th>
+					<th>Recording</th>
+					<th> <a href="https://ojs.aaai.org/index.php/AAAI/article/view/21350"><span  style="color: #1d5da4; ">DiffSpeech[1]</span></a></th>
+					<th> <a href="https://dl.acm.org/doi/abs/10.1145/3503161.3547855"><span  style="color: #1d5da4; ">ProDiff[2]</span></a></th>
+					<th> <a href="https://arxiv.org/pdf/2309.13664"><span  style="color: #1d5da4; ">VoiceLDM[3]</span></a> </th>
+					<th><a href="https://arxiv.org/pdf/2305.12708"><span  style="color: #1d5da4; ">ViT-TTS[4]</span></a></th>
+					<th>MS2KU-VTTS (ours)</th>
+				</tr>
+                <tr >
+                	<th style=" vertical-align:middle;" width="10%">Sample 2: </th>
+                    <th style=" vertical-align:middle;">
+                		<audio  controls style="width: 150px;"><source src="Supplementary_Material/Performance/Test-Unseen/GT/5639-40744-0007.wav"          type="audio/wav"></audio>
+                	<th style=" vertical-align:middle;">
+                		<audio  controls style="width: 150px;"><source src="Supplementary_Material/Performance/Test-Unseen/diffspeech/5639-40744-0007.wav"        type="audio/wav"></audio>
+                	</th>
+                	<th style=" vertical-align:middle;">
+                		<audio  controls style="width: 150px;"><source src="Supplementary_Material/Performance/Test-Unseen/prodiff/5639-40744-0007.wav"        type="audio/wav"></audio>
+                	</th>
+                	<th style=" vertical-align:middle;">
+                		<audio  controls style="width: 150px;"><source src="Supplementary_Material/Performance/Test-Unseen/VoiceLDM/5639-40744-0007.wav"        type="audio/wav"></audio>
+                	</th>
+                	<th style=" vertical-align:middle;">
+                		<audio  controls style="width: 150px;"><source src="Supplementary_Material/Performance/Test-Unseen/vit-tts/5639-40744-0007.wav"          type="audio/wav"></audio>
+                	</th>
+                	<th style=" vertical-align:middle;">
+                		<audio  controls style="width: 150px;"><source src="Supplementary_Material/Performance/Test-Unseen/MS2KU-VTTS/5639-40744-0007.wav"         type="audio/wav"></audio>
+                	</th>
+                </tr>
+                
+                <tr>
+                    <th style=" vertical-align:middle;"> Target RGB/Depth Image: </th>
+                	<th style=" vertical-align:middle;" colspan="3">
+                		<img  src="Supplementary_Material/Performance/Test-Unseen/imgs/5639-40744-0007.jpg"20">
+                    </th>
+                    <th style=" vertical-align:middle;" colspan="3">
+                		<img  src="Supplementary_Material/Performance/Test-Unseen/imgs/5639-40744-0007_depth.jpg"20">
+                    </th>
+                </tr>
+
+				<tr > 
+					<th style=" vertical-align:middle;"> Reference Text: </th>
+                    <td colspan="6" style=" vertical-align:middle;">meanwhile rodolfo had leocadia</td>
+                
+				</tr>
+				<tr >
+					<th style=" vertical-align:middle;"> Caption Text: </th>
+				    <td colspan="6" style=" vertical-align:middle;">This panoramic image showcases a backyard scene. In the foreground, a wooden deck surrounds a blue swimming pool. To the left, a tall tree stands tall, and a small shed is visible in the background. On the right, a house with a patio is seen. The overall atmosphere is peaceful and suburban.</td>
+				</tr>
+				<tr >
+					<th>Systems</th>
+					<th>Recording</th>
+					<th> <a href="https://ojs.aaai.org/index.php/AAAI/article/view/21350"><span  style="color: #1d5da4; ">DiffSpeech[1]</span></a></th>
+					<th> <a href="https://dl.acm.org/doi/abs/10.1145/3503161.3547855"><span  style="color: #1d5da4; ">ProDiff[2]</span></a></th>
+					<th> <a href="https://arxiv.org/pdf/2309.13664"><span  style="color: #1d5da4; ">VoiceLDM[3]</span></a> </th>
+					<th><a href="https://arxiv.org/pdf/2305.12708"><span  style="color: #1d5da4; ">ViT-TTS[4]</span></a></th>
+					<th>MS2KU-VTTS (ours)</th>
+				</tr>
+                <tr >
+                	<th style=" vertical-align:middle;" width="10%">Sample 3: </th>
+                    <th style=" vertical-align:middle;">
+                		<audio  controls style="width: 150px;"><source src="Supplementary_Material/Performance/Test-Unseen/GT/5639-40744-0010.wav"          type="audio/wav"></audio>
+                	<th style=" vertical-align:middle;">
+                		<audio  controls style="width: 150px;"><source src="Supplementary_Material/Performance/Test-Unseen/diffspeech/5639-40744-0010.wav"        type="audio/wav"></audio>
+                	</th>
+                	<th style=" vertical-align:middle;">
+                		<audio  controls style="width: 150px;"><source src="Supplementary_Material/Performance/Test-Unseen/prodiff/5639-40744-0010.wav"        type="audio/wav"></audio>
+                	</th>
+                	<th style=" vertical-align:middle;">
+                		<audio  controls style="width: 150px;"><source src="Supplementary_Material/Performance/Test-Unseen/VoiceLDM/5639-40744-0010.wav"        type="audio/wav"></audio>
+                	</th>
+                	<th style=" vertical-align:middle;">
+                		<audio  controls style="width: 150px;"><source src="Supplementary_Material/Performance/Test-Unseen/vit-tts/5639-40744-0010.wav"          type="audio/wav"></audio>
+                	</th>
+                	<th style=" vertical-align:middle;">
+                		<audio  controls style="width: 150px;"><source src="Supplementary_Material/Performance/Test-Unseen/MS2KU-VTTS/5639-40744-0010.wav"         type="audio/wav"></audio>
+                	</th>
+                </tr>
+                
+                <tr>
+                    <th style=" vertical-align:middle;"> Target RGB/Depth Image: </th>
+                	<th style=" vertical-align:middle;" colspan="3">
+                		<img  src="Supplementary_Material/Performance/Test-Unseen/imgs/5639-40744-0010.jpg"20">
+                    </th>
+                    <th style=" vertical-align:middle;" colspan="3">
+                		<img  src="Supplementary_Material/Performance/Test-Unseen/imgs/5639-40744-0010_depth.jpg"20">
+                    </th>
+                </tr>
+
+				<tr > 
+					<th style=" vertical-align:middle;"> Reference Text: </th>
+                    <td colspan="6" style=" vertical-align:middle;">it is the only amends i ask of you for</td>
+                
+				</tr>
+				<tr >
+					<th style=" vertical-align:middle;"> Caption Text: </th>
+				    <td colspan="6" style=" vertical-align:middle;">This panoramic image depicts a spacious basement apartment. A man stands in the center of the room, facing a kitchen area to the right. To the left, there is a hallway with a door leading to other rooms. The walls are painted white, and the floors are covered in hardwood. The overall atmosphere is clean and modern.</td>
+				</tr>
+			
+			</table>
+		</div>
+
+        <br>
+		<div class="columns is-centered has-text-centered">
+			<div class="column is-four-fifths">
+				<h2 class="title is-3">REFERENCES</h2>
+			</div>
+		</div>
+		</br> [1] J. Liu, C. Li, Y. Ren, F. Chen, and Z. Zhao, “Diffsinger: Singing voice synthesis via shallow diffusion mechanism,” in Proceedings of the AAAI
+		conference on artificial intelligence, vol. 36, no. 10, 2022, pp. 11 020–11 028.
+		</br> [2] R. Huang, Z. Zhao, H. Liu, J. Liu, C. Cui, and Y. Ren, “Prodiff: Progressive fast diffusion model for high-quality text-to-speech,” in Proceedings of the 30th ACM International Conference on Multimedia,
+		2022, pp. 2595–2605.
+		
+		</br> [3] Y. Lee, I. Yeon, J. Nam, and J. S. Chung, “Voiceldm: Text-to-speech with environmental context,” in ICASSP 2024-2024 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP).
+		IEEE, 2024, pp. 12 566–12 571.
+		
+		</br> [4] H. Liu, R. Huang, X. Lin, W. Xu, M. Zheng, H. Chen, J. He, and Z. Zhao, “Vit-tts: Visual text-to-speech with scalable diffusion transformer,” in Proceedings of the 2023 Conference on Empirical Methods
+		in Natural Language Processing, 2023, pp. 15 957–15 969.
+
+                
+
+		</div>
+	    </div>
+
+
+		
+
+    
+      
+
+
+  
+</section>
+ 
